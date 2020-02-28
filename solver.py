@@ -1,5 +1,32 @@
 import rubik
 
+def bfs(start, end):
+    # Create subarray
+    queue = list()
+    visited = list()
+
+    queue.append({'perm':start, 'moves':visited})
+    print(type(visited))
+    while queue or (len(visited) < 15):
+        current = queue.pop(0)
+        print(current)
+        visited = current['moves']
+        if current['perm'] != end:
+            for m in range(len(rubik.quarter_twists)):
+                move = rubik.quarter_twists[m]
+                print('Tuple:', visited, type(visited))
+                poss = rubik.perm_apply(move, current['perm'])
+                moves = []
+                moves = moves + visited
+                moves.append(move)
+                print(moves)
+                queue.append({'perm':poss,'moves':moves})
+
+        else:
+            return current['moves']
+    
+    return None
+
 def shortest_path(start, end):
     """
     Using 2-way BFS, finds the shortest path from start_position to
@@ -11,10 +38,11 @@ def shortest_path(start, end):
     print("Start:", start, type(start))
     print("End:", end, type(end))
 
-    front = rubik.quarter_twists[0]
-    print("Per (F):", front)
-    rubik.perm_apply(front, start)
-    print("Apply:", start)
-
+    print("New node:", end)
+    rubik.perm_apply(rubik.F, end)
+    print("New node:", end)
+    rubik.perm_apply(rubik.F, end)
+    print("New node:", end)
+    return bfs(start,end)
 
     raise NotImplementedError
