@@ -1,4 +1,4 @@
-CSC 440 Assignment 2
+# CSC 440 Assignment 2
 
 Package contents:
 
